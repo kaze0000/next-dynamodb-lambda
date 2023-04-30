@@ -47,11 +47,23 @@ const IndexPage: FC = () => {
     }
   };
 
+  const deleteTodo = async (todoId: string) => {
+    const res = await fetch(`/api/todos/${todoId}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      setTodos(todos.filter((todo) => todo.todoId !== todoId));
+    } else {
+      console.error("Error deleting todo");
+    }
+  };
+
   return (
     <div className="h-screen">
       <h1>Todo App</h1>
       <AddTodo addTodo={addTodo} />
-      <TodoList todos={todos} updateTodo={updateTodo} />
+      <TodoList todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
     </div>
   );
 };

@@ -24,11 +24,28 @@ export default async function handler(
           ReturnValues: "ALL_NEW",
         };
 
-        const updatedTodo = await client.update(params).promise();
-        res.status(200).json(updatedTodo.Attributes);
+        await client.update(params).promise();
+        res.status(204).end();
       } catch (error) {
         console.error("Error updating todo:", error);
+        res.status(500).json({ error: "Error updating todo" });
+      }
+      break;
 
+    case "DELETE":
+      try {
+        if (!process.env.DYNAMODB_TABLE_NAME) {
+          throw new Error("DYNAMODB_TABLE_NAME is not defined");
+        }
+        const params = {
+          TableName: process.env.DYNAMODB_TABLE_NAME,
+          Key: { todoId },
+        };
+
+        await client.delete(params).promise();
+        res.status(204).end();
+      } catch (error) {
+        console.error("Error deleting todo:", error);
         res.status(500).json({ error: "Error updating todo" });
       }
       break;

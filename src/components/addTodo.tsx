@@ -20,14 +20,16 @@ const AddTodo: FC<AddTodoProps> = ({ addTodo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="mb-6">
       <input
         type="text"
         placeholder="Enter new todo"
         value={text}
         onChange={handleChange}
       />
-      <button type="submit">Add</button>
+      <button type="submit" className="bg-sky-500 text-white mr-4">
+        Add
+      </button>
     </form>
   );
 };

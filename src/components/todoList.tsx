@@ -5,9 +5,10 @@ import { Todo } from "@/type/todo";
 type TodoListProps = {
   todos: Todo[];
   updateTodo: (todoId: string, title: string) => void;
+  deleteTodo: (todoId: string) => void;
 };
 
-const TodoList: FC<TodoListProps> = ({ todos, updateTodo }) => {
+const TodoList: FC<TodoListProps> = ({ todos, updateTodo, deleteTodo }) => {
   return (
     <ul>
       {todos.map((todo) => (
@@ -16,6 +17,7 @@ const TodoList: FC<TodoListProps> = ({ todos, updateTodo }) => {
           todo={todo}
           todoId={todo.todoId}
           updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
         />
       ))}
     </ul>
