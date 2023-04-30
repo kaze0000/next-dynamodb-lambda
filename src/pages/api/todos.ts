@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Todo[] | ErrorResponse>
+  res: NextApiResponse
 ): Promise<void> {
   switch (req.method) {
     case "GET":
@@ -17,7 +17,7 @@ export default async function handler(
         const { Items } = await client
           .scan({ TableName: process.env.DYNAMODB_TABLE_NAME })
           .promise();
-        res.status(200).json(Items); //Items型エラー
+        res.status(200).json(Items);
       } catch (err) {
         res.status(500).json({ err: "Something went wrong" });
       }
