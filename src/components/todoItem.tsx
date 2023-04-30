@@ -1,22 +1,31 @@
 import { Todo } from "@/type/todo";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 type TodoItemProps = {
+  todoId: string;
   todo: Todo;
+  updateTodo: (todoId: string, title: string) => void;
 };
 
-const TodoItem: FC<TodoItemProps> = ({ todo }) => {
-  const handleToggle = () => {
-    // toggleTodo(todo.id);
+const TodoItem: FC<TodoItemProps> = ({ todoId, todo, updateTodo }) => {
+  const [newTitle, setNewTitle] = useState(todo.title);
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(event.target.value);
+  };
+
+  const handleUpdate = () => {
+    updateTodo(todoId, newTitle);
   };
 
   return (
     <li>
       {/* <input type="checkbox" checked={todo.completed} onChange={handleToggle} /> */}
-      <input type="checkbox" onChange={handleToggle} />
-      <label>
-        {todo.title} {todo.todoId}
-      </label>
+      タイトル 「{todo.title}」 id「{todo.todoId}」
+      <br />
+      <input type="text" value={todo.title} onChange={handleTitleChange} />
+      <button onClick={handleUpdate}>更新</button>
+      <p>---------</p>
     </li>
   );
 };

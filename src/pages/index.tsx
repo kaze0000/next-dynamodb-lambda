@@ -9,9 +9,7 @@ type FetchTodosResponse = Todo[] | ErrorResponse;
 const IndexPage: FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  // Fetch todos from API and update the state
   useEffect(() => {
-    // fetchTodos() is a function to call your API route
     fetchTodos().then((data) => setTodos(data));
   }, []);
 
@@ -31,12 +29,29 @@ const IndexPage: FC = () => {
     setTodos([...todos, newTodo]);
   };
 
+  const updateTodo = async (todoId: string, title: string) => {
+    const res = await fetch(`/api/todos/${todoId}`, {
+      method: "PUT",
+      body: JSON.stringify({ title }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (res.ok) {
+      setTodos(
+        todos.map((todo) =>
+          todo.todoId === todoId ? { ...todo, title } : todo
+        )
+      );
+    } else {
+      console.error("Error updating todo");
+    }
+  };
+
   return (
-    <div>
+    <div className="h-screen">
       <h1>Todo App</h1>
       <AddTodo addTodo={addTodo} />
-      {/* <TodoList todos={todos} toggleTodo={toggleTodo} /> */}
-      <TodoList todos={todos} />
+      <TodoList todos={todos} updateTodo={updateTodo} />
     </div>
   );
 };
