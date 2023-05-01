@@ -26,6 +26,7 @@ const AddTodo: FC<AddTodoProps> = ({ addTodo }) => {
         placeholder="Enter new todo"
         value={text}
         onChange={handleChange}
+        className="text-black"
       />
       <button type="submit" className="bg-sky-500 text-white mr-4">
         Add

@@ -20,6 +20,7 @@ export default async function handler(
           .promise();
         res.status(200).json(Items);
       } catch (err) {
+        console.error("err", err);
         res.status(500).json({ err: "Something went wrong" });
       }
       break;

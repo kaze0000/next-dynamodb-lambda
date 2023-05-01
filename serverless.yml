@@ -1,0 +1,8 @@
+myApp:
+  component: "./node_modules/@sls-next/serverless-component"
+  inputs:
+    bucketName: next-todo-app-bucket
+    description: My Next.js TodoApp
+    region: ap-northeast-1
+    environment:
+      DYNAMODB_TABLE_NAME: TodoApp

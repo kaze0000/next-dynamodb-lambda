@@ -33,7 +33,12 @@ const TodoItem: FC<TodoItemProps> = ({
       {/* <input type="checkbox" checked={todo.completed} onChange={handleToggle} /> */}
       タイトル 「{todo.title}」 id「{todo.todoId}」
       <br />
-      <input type="text" value={newTitle} onChange={handleTitleChange} />
+      <input
+        type="text"
+        value={newTitle}
+        onChange={handleTitleChange}
+        className="text-black"
+      />
       <button onClick={handleUpdate} className="bg-green-500 text-white mr-4">
         更新
       </button>
